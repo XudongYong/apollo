@@ -49,17 +49,17 @@ bool RadarObstaclePerception::Init(const std::string& pipeline_name) {
   CHECK_NOTNULL(detector);
   detector_.reset(detector);
 
-  BaseRoiFilter* roi_filter =
-      BaseRoiFilterRegisterer::GetInstanceByName(roi_filter_name);
+  /* BaseRoiFilter* roi_filter =
+      BaseRoiFilterRegisterer::GetInstanceByName(roi_filter_name); 
   CHECK_NOTNULL(roi_filter);
-  roi_filter_.reset(roi_filter);
+  roi_filter_.reset(roi_filter); */
 
   BaseTracker* tracker = BaseTrackerRegisterer::GetInstanceByName(tracker_name);
   CHECK_NOTNULL(tracker);
   tracker_.reset(tracker);
 
   ACHECK(detector_->Init()) << "radar detector init error";
-  ACHECK(roi_filter_->Init()) << "radar roi filter init error";
+ // ACHECK(roi_filter_->Init()) << "radar roi filter init error";
   ACHECK(tracker_->Init()) << "radar tracker init error";
 
   return true;
@@ -82,12 +82,13 @@ bool RadarObstaclePerception::Perceive(
   ADEBUG << "Detected frame objects number: "
          << detect_frame_ptr->objects.size();
   PERF_BLOCK_END_WITH_INDICATOR(sensor_name, "detector");
-  if (!roi_filter_->RoiFilter(options.roi_filter_options, detect_frame_ptr)) {
+
+  /* if (!roi_filter_->RoiFilter(options.roi_filter_options, detect_frame_ptr)) {
     ADEBUG << "All radar objects were filtered out";
   }
   ADEBUG << "RoiFiltered frame objects number: "
          << detect_frame_ptr->objects.size();
-  PERF_BLOCK_END_WITH_INDICATOR(sensor_name, "roi_filter");
+  PERF_BLOCK_END_WITH_INDICATOR(sensor_name, "roi_filter");  */
 
   base::FramePtr tracker_frame_ptr(new base::Frame);
   if (!tracker_->Track(*detect_frame_ptr, options.track_options,
