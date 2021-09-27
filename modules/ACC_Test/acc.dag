@@ -1,0 +1,10 @@
+# Define all coms in DAG streaming.
+    module_config {
+    module_library : "/apollo/bazel-bin/modules/ACC_Test/ACC_Component.so"
+    components {
+        class_name : "ACCComponent"
+        config {
+            name : "acc"
+        }
+      }
+    }

@@ -1,0 +1,7 @@
+<cyber>
+    <module>
+        <name>acc</name>
+        <dag_conf>/apollo/modules/ACC_Test/acc.dag</dag_conf>
+        <process_name>acc</process_name>
+    </module>
+</cyber>
