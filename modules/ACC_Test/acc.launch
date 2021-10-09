@@ -4,4 +4,10 @@
         <dag_conf>/apollo/modules/ACC_Test/acc.dag</dag_conf>
         <process_name>acc</process_name>
     </module>
+
+    <module>
+        <name>conti_radar</name>
+        <dag_conf>/apollo/modules/drivers/radar/conti_radar/dag/conti_radar.dag</dag_conf>
+        <process_name>conti_radar</process_name>
+    </module>
 </cyber>

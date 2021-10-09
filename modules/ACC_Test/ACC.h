@@ -81,7 +81,7 @@ typedef enum {
 typedef enum {
     SCState = 0, //SC.State: Simulation state (integer)
     DMBrake,
-    DMVelocityTrgt, //DM.v.Trgt: Target velocity used for Speed Control, Speed Profile, Speed Transition, Default Controllerand Input From File
+    DriverTgtSpeed, //Driver.ReCon.Speed: Target speed for the selected driving mode
     VhclVelocity,
     VhclPoIAx_1, // Vhcl.POI.ax_1: Acceleration vector for PoI ("Point of Interest") in vehicle frame (Fr1), m/s2
     VCGas,
@@ -90,7 +90,9 @@ typedef enum {
 	UAQCount // Item count in the enum
 }UAQs;
 
-void RunACC();
+void InitACC();
+void RunACC(double* radarObjs);
+void ShutDownACC();
 
 #ifdef __cplusplus
 }

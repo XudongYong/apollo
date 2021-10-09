@@ -16,6 +16,7 @@ cc_library(
     hdrs = ["acc_component.h"],
     deps = [
         "//cyber",
+        "//modules/drivers/proto:conti_radar_cc_proto",
         ":acc_lib",
     ],    
 )
