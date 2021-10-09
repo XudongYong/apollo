@@ -7,6 +7,7 @@ cc_library(
     name = "can_client_factory",
     srcs = ["can_client_factory.cc"],
     hdrs = ["can_client_factory.h"],
+    copts = ["-DUSE_ESD_CAN=1"],
     deps = [
         "//cyber",
         "//modules/common/util:factory",
