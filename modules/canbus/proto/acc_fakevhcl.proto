@@ -1,0 +1,55 @@
+syntax = "proto2";
+
+package apollo.canbus;
+
+message Dm_gas_60 {
+// Report Message
+  // Current output list type [] [0|1]
+  optional double dm_gas = 1;
+}
+
+message Dm_brake_61 {
+// Report Message
+  // [] [0|1]
+  optional double dm_brake = 1;
+}
+
+message Vc_gas_62 {
+// Control Message
+  // [] [0|1]
+  optional double vc_gas = 1;
+}
+
+message Vc_brake_63 {
+// Control Message
+  // [] [0|1]
+  optional double vc_brake = 1;
+}
+
+message Vhcl_velocity_64 {
+// Report Message
+  // [] [0|6553.5]
+  optional double vhcl_velocity = 1;
+}
+
+message Vhcl_poi_ax_1_65 {
+// Report Message
+  // [] [0|6553.5]
+  optional double vhcl_poi_ax_1 = 1;
+}
+
+message Cfg_cruise_speed_66 {
+// Report Message
+  // [] [0|6553.5]
+  optional double cfg_cruise_speed = 1;
+}
+
+message Acc_fakevhcl {
+  optional Dm_gas_60 dm_gas_60 = 1; // report message
+  optional Dm_brake_61 dm_brake_61 = 2; // report message
+  optional Vc_gas_62 vc_gas_62 = 3; // control message
+  optional Vc_brake_63 vc_brake_63 = 4; // control message
+  optional Vhcl_velocity_64 vhcl_velocity_64 = 5; // report message
+  optional Vhcl_poi_ax_1_65 vhcl_poi_ax_1_65 = 6; // report message
+  optional Cfg_cruise_speed_66 cfg_cruise_speed_66 = 7; // report message
+}

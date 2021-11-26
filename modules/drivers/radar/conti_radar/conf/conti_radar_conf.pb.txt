@@ -15,26 +15,26 @@ radar_conf {
   sensor_id_valid: false
   radar_power_valid: false
   output_type_valid: true
-  send_quality_valid: true
-  send_ext_info_valid: true
+  send_quality_valid: false
+  send_ext_info_valid: false
   sort_index_valid: false
-  store_in_nvm_valid: true
+  store_in_nvm_valid: false
   ctrl_relay_valid: false
-  rcs_threshold_valid: true
+  rcs_threshold_valid: false
 
   max_distance: 250
   sensor_id: 0
   output_type: OUTPUT_TYPE_OBJECTS
   radar_power: 0
   ctrl_relay: 0
-  send_ext_info: true
-  send_quality: true
+  send_ext_info: false
+  send_quality: false
   sort_index: 0
-  store_in_nvm: 1
+  store_in_nvm: 0
   rcs_threshold: RCS_THRESHOLD_STANDARD
 
-  # unit: nanoseconds, 20ms for 50Hz
-  input_send_interval: 20000000
+  # unit: nanoseconds, 66.66ms for 15Hz
+  input_send_interval: 66666666
 }
 
-radar_channel: "/apollo/sensor/radar"
+radar_channel: "/apollo/sensor/radar/front"

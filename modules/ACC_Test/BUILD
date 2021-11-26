@@ -17,6 +17,9 @@ cc_library(
     deps = [
         "//cyber",
         "//modules/drivers/proto:conti_radar_cc_proto",
+        "//modules/control/proto:control_cmd_cc_proto",
+        "//modules/canbus/proto:chassis_cc_proto",
+         "//modules/common/adapters:adapter_gflags",
         ":acc_lib",
     ],    
 )

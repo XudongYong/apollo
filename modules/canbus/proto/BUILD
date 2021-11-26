@@ -239,6 +239,44 @@ py_proto_library(
 )
 
 cc_proto_library(
+    name = "acc_fakevhcl_cc_proto",
+    deps = [
+        ":acc_fakevhcl_proto",
+    ],
+)
+
+proto_library(
+    name = "acc_fakevhcl_proto",
+    srcs = ["acc_fakevhcl.proto"],
+)
+
+py_proto_library(
+    name = "acc_fakevhcl_py_pb2",
+    deps = [
+        ":acc_fakevhcl_proto",
+    ],
+)
+
+cc_proto_library(
+    name = "poc_vehicle_cc_proto",
+    deps = [
+        ":poc_vehicle_proto",
+    ],
+)
+
+proto_library(
+    name = "poc_vehicle_proto",
+    srcs = ["poc_vehicle.proto"],
+)
+
+py_proto_library(
+    name = "poc_vehicle_py_pb2",
+    deps = [
+        ":poc_vehicle_proto",
+    ],
+)
+
+cc_proto_library(
     name = "chassis_detail_cc_proto",
     deps = [
         ":chassis_detail_proto",
@@ -249,6 +287,8 @@ proto_library(
     name = "chassis_detail_proto",
     srcs = ["chassis_detail.proto"],
     deps = [
+    	":acc_fakevhcl_proto",
+    	":poc_vehicle_proto",
         ":ch_proto",
         ":chassis_proto",
         ":devkit_proto",
@@ -265,6 +305,8 @@ proto_library(
 py_proto_library(
     name = "chassis_detail_py_pb2",
     deps = [
+    	":acc_fakevhcl_py_pb2",
+    	":poc_vehicle_py_pb2",
         ":ch_py_pb2",
         ":chassis_detail_proto",
         ":chassis_py_pb2",

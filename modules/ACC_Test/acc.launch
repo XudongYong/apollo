@@ -10,4 +10,10 @@
         <dag_conf>/apollo/modules/drivers/radar/conti_radar/dag/conti_radar.dag</dag_conf>
         <process_name>conti_radar</process_name>
     </module>
+
+    <module>
+        <name>canbus</name>
+        <dag_conf>/apollo/modules/canbus/dag/canbus.dag</dag_conf>
+        <process_name>canbus</process_name>
+    </module>
 </cyber>

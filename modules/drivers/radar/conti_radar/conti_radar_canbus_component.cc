@@ -48,6 +48,7 @@ ContiRadarCanbusComponent::ContiRadarCanbusComponent()
 ContiRadarCanbusComponent::~ContiRadarCanbusComponent() { Stop(); }
 
 bool ContiRadarCanbusComponent::Init() {
+  AINFO << ConfigFilePath();
   if (!GetProtoConfig(&conti_radar_conf_)) {
     return OnError("Unable to load canbus conf file: " + ConfigFilePath());
   }
@@ -97,7 +98,8 @@ apollo::common::ErrorCode ContiRadarCanbusComponent::ConfigureRadar() {
   radar_config.set_radar_conf(conti_radar_conf_.radar_conf());
   SenderMessage<ContiRadar> sender_message(RadarConfig200::ID, &radar_config);
   sender_message.Update();
-  return can_client_->SendSingleFrame({sender_message.CanFrame()});
+ // return can_client_->SendSingleFrame({sender_message.CanFrame()});
+  return ErrorCode::OK;
 }
 
 bool ContiRadarCanbusComponent::Start() {

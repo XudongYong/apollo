@@ -1,0 +1,9 @@
+dbc_file: POC_CANdb.dbc
+protocol_conf: POC_CANdb.yml
+car_type: poc_vehicle
+sender_list: []
+sender: ACU
+black_list: []
+
+output_dir: output/
+

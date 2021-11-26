@@ -1,0 +1,100 @@
+car_type: poc_vehicle
+protocols:
+  '41':
+    id: '41'
+    name: acc_info_41
+    protocol_type: control
+    sender: ACU
+    vars:
+    - bit: 16
+      is_signed_var: false
+      len: 1
+      name: ACC_Enabled
+      offset: 0.0
+      order: intel
+      physical_range: '[0|1]'
+      physical_unit: ''
+      precision: 1.0
+      type: bool
+    - bit: 0
+      is_signed_var: false
+      len: 8
+      name: Brake
+      offset: 0.0
+      order: intel
+      physical_range: '[0|100]'
+      physical_unit: '%'
+      precision: 1.0
+      type: int
+    - bit: 8
+      is_signed_var: false
+      len: 8
+      name: Throttle
+      offset: 0.0
+      order: intel
+      physical_range: '[0|100]'
+      physical_unit: '%'
+      precision: 1.0
+      type: int
+  '42':
+    id: '42'
+    name: dash_commands_42
+    protocol_type: report
+    sender: DASH
+    vars:
+    - bit: 16
+      is_signed_var: false
+      len: 1
+      name: ACC_Enabled
+      offset: 0.0
+      order: intel
+      physical_range: '[0|1]'
+      physical_unit: ''
+      precision: 1.0
+      type: bool
+    - bit: 8
+      is_signed_var: false
+      len: 8
+      name: Minimum_Follow_Distance
+      offset: 0.0
+      order: intel
+      physical_range: '[10|150]'
+      physical_unit: ft
+      precision: 1.0
+      type: int
+    - bit: 0
+      is_signed_var: false
+      len: 8
+      name: Target_Vehicle_Speed
+      offset: 0.0
+      order: intel
+      physical_range: '[0|200]'
+      physical_unit: mph
+      precision: 1.0
+      type: int
+  '43':
+    id: '43'
+    name: pt_info_43
+    protocol_type: report
+    sender: VCU
+    vars:
+    - bit: 12
+      is_signed_var: false
+      len: 12
+      name: Lateral_acceleration
+      offset: 0.0
+      order: intel
+      physical_range: '[0|100]'
+      physical_unit: ''
+      precision: 1.0
+      type: int
+    - bit: 0
+      is_signed_var: false
+      len: 12
+      name: Vehicle_Speed
+      offset: 0.0
+      order: intel
+      physical_range: '[0|300]'
+      physical_unit: mph
+      precision: 1.0
+      type: int

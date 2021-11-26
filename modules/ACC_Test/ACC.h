@@ -90,8 +90,14 @@ typedef enum {
 	UAQCount // Item count in the enum
 }UAQs;
 
+typedef struct {
+    double breakpedal;
+    double throttle;
+    bool findtarget;
+} AccCommand;
+
 void InitACC();
-void RunACC(double* radarObjs);
+AccCommand RunACC(double* radarObjs, double speed, double acceleration, bool accEnabled);
 void ShutDownACC();
 
 #ifdef __cplusplus

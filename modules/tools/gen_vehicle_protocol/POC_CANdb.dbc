@@ -1,0 +1,71 @@
+VERSION ""
+
+NS_ :
+  NS_DESC_
+  CM_
+  BA_DEF_
+  BA_
+  VAL_
+  CAT_DEF_
+  CAT_
+  FILTER
+  BA_DEF_DEF_
+  EV_DATA_
+  ENVVAR_DATA_
+  SGTYPE_
+  SGTYPE_VAL_
+  BA_DEF_SGTYPE_
+  BA_SGTYPE_
+  SIG_TYPE_REF_
+  VAL_TABLE_
+  SIG_GROUP_
+  SIG_VALTYPE_
+  SIGTYPE_VALTYPE_
+  BO_TX_BU_
+  BA_DEF_REL_
+  BA_REL_
+  BA_DEF_DEF_REL_
+  BU_SG_REL_
+  BU_EV_REL_
+  BU_BO_REL_
+  SG_MUL_VAL_
+
+BS_ :
+
+BU_ : ACU DASH VCU
+
+BO_ 65 ACC_INFO: 3 ACU
+  SG_ ACC_Enabled : 16|1@1+ (1,0) [0|1] "" DASH,VCU
+  SG_ Brake : 0|8@1+ (1,0) [0|100] "%" DASH,VCU
+  SG_ Throttle : 8|8@1+ (1,0) [0|100] "%" DASH,VCU
+
+BO_ 66 DASH_COMMANDS: 3 DASH
+  SG_ ACC_Enabled : 16|1@1+ (1,0) [0|1] "" ACU
+  SG_ Minimum_Follow_Distance : 8|8@1+ (1,0) [10|150] "ft" ACU
+  SG_ Target_Vehicle_Speed : 0|8@1+ (1,0) [0|200] "mph" ACU
+
+BO_ 67 PT_INFO: 3 VCU
+  SG_ Lateral_acceleration : 12|12@1+ (1,0) [0|100] "" ACU
+  SG_ Vehicle_Speed : 0|12@1+ (1,0) [0|300] "mph" ACU
+
+BA_DEF_ "DBName" STRING;
+BA_DEF_ "BusType" STRING;
+BA_DEF_ BO_ "VFrameFormat" ENUM "StandardCAN","ExtendedCAN","reserved","J1939PG","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_ BO_ "GenMsgSendType" ENUM "Cyclic","Event","CyclicIfActive","SpontanWithDelay","CyclicAndSpontan","CyclicAndSpontanWithDelay";
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 0;
+BA_DEF_ BO_ "GenMsgDelayTime" INT 0 0;
+BA_DEF_ SG_ "GenSigStartValue" FLOAT 0 0;
+BA_DEF_DEF_ "DBName" "Cluster";
+BA_DEF_DEF_ "BusType" "CAN";
+BA_DEF_DEF_ "VFrameFormat" "StandardCAN";
+BA_DEF_DEF_ "GenMsgSendType" "Cyclic";
+BA_DEF_DEF_ "GenMsgCycleTime" 0;
+BA_DEF_DEF_ "GenMsgDelayTime" 0;
+BA_DEF_DEF_ "GenSigStartValue" 0;
+BA_ "VFrameFormat" BO_ 65 0;
+BA_ "GenMsgSendType" BO_ 65 1;
+BA_ "VFrameFormat" BO_ 66 0;
+BA_ "GenMsgSendType" BO_ 66 1;
+BA_ "VFrameFormat" BO_ 67 0;
+BA_ "GenMsgSendType" BO_ 67 1;
+BA_ "GenSigStartValue" SG_ 66 Minimum_Follow_Distance 10;

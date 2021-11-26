@@ -1,0 +1,144 @@
+VERSION "HNPBNNNYNNNNNNNNNNNNNNNNNNNNNNNNYNYYYYYYYY>4>%%%/4>'%**4YYY///"
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: ACU VCU
+
+
+BO_ 98 VC_Gas: 8 ACU
+ SG_ VC_Gas : 7|16@0+ (0.1,0) [0|1] ""  VCU
+
+BO_ 96 DM_Gas: 8 VCU
+ SG_ DM_Gas : 7|16@0+ (0.1,0) [0|1] ""  ACU
+
+BO_ 99 VC_Brake: 8 ACU
+ SG_ VC_Brake : 7|16@0+ (0.1,0) [0|1] ""  VCU
+
+BO_ 97 DM_Brake: 8 VCU
+ SG_ DM_Brake : 7|16@0+ (0.1,0) [0|1] ""  ACU
+
+BO_ 102 Cfg_Cruise_Speed: 8 VCU
+ SG_ Cfg_Cruise_Speed : 7|16@0+ (0.1,0) [0|6553.5] ""  ACU
+
+BO_ 101 Vhcl_POI_Ax_1: 8 VCU
+ SG_ Vhcl_POI_Ax_1 : 7|16@0+ (0.1,0) [0|6553.5] ""  ACU
+
+BO_ 100 Vhcl_Velocity: 8 VCU
+ SG_ Vhcl_Velocity : 7|16@0+ (0.1,0) [0|6553.5] ""  ACU
+
+
+
+CM_ SG_ 96 DM_Gas "Current output list type";
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "Version" HEX 0 255;
+BA_DEF_  "NmMessageCount" INT 0 64;
+BA_DEF_  "NWID" HEX 0 255;
+BA_DEF_  "NBTMax" INT 0 255;
+BA_DEF_  "NBTMin" INT 0 255;
+BA_DEF_  "SamplePointMax" FLOAT 0 100;
+BA_DEF_  "SamplePointMin" FLOAT 0 100;
+BA_DEF_ SG_  "RID" STRING ;
+BA_DEF_ BO_  "TpTxIndex" INT 0 99;
+BA_DEF_  "NWM-Basisadresse" HEX 0 536870911;
+BA_DEF_  "NWM-Typ" ENUM  "zentral (MB-W210)","dezentral (MB-OSAN)","keines","VAG-OSEK","BMW-OSEK","PAG-OSEK","DBAG-OSEK";
+BA_DEF_ BU_  "NWM-Knoten" ENUM  "nein","ja";
+BA_DEF_ BU_  "NWM-Stationsadresse" HEX 0 63;
+BA_DEF_ SG_  "GenSigStartValue" HEX 0 4294967295;
+BA_DEF_ SG_  "GenSigCycleTimeActive" INT 0 65535;
+BA_DEF_ SG_  "GenSigCycleTime" INT 0 65535;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "cyclicX","spontanX","cyclicIfActiveX","spontanWithDelay","cyclicAndSpontanX","cyclicAndSpontanWithDelay","spontanWithRepitition","cyclicIfActiveAndSpontanWD","cyclicIfActiveFast","cyclicWithRepeatOnDemand","none";
+BA_DEF_ BO_  "GenMsgNrOfRepetitions" INT 0 65535;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTimeActive" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclicX","spontanX","cyclicIfActiveX","spontanWithDelay","cyclicAndSpontanX","cyclicAndSpontanWithDelay","spontanWithRepitition","cyclicIfActiveAndSpontanWD","cyclicIfActiveFast","cyclicWithRepeatOnDemand","none";
+BA_DEF_  "Baudrate" INT 0 1000000;
+BA_DEF_  "VersionWeek" INT 0 53;
+BA_DEF_  "VersionYear" INT 0 99;
+BA_DEF_  "Manufacturer" ENUM  "DBAG","VAG","BMWAG","PAG","GM","CONTI";
+BA_DEF_ BO_  "DiagResponse" ENUM  "nein","ja";
+BA_DEF_ BO_  "DiagRequest" ENUM  "nein","ja";
+BA_DEF_ BO_  "DiagState" ENUM  "nein","ja";
+BA_DEF_ BO_  "App-Botschaft" ENUM  "nein","ja";
+BA_DEF_ BO_  "NWM-Botschaft" ENUM  "nein","ja";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "Version" 176;
+BA_DEF_DEF_  "NmMessageCount" 64;
+BA_DEF_DEF_  "NWID" 11;
+BA_DEF_DEF_  "NBTMax" 21;
+BA_DEF_DEF_  "NBTMin" 9;
+BA_DEF_DEF_  "SamplePointMax" 81.25;
+BA_DEF_DEF_  "SamplePointMin" 75;
+BA_DEF_DEF_  "RID" "";
+BA_DEF_DEF_  "TpTxIndex" 0;
+BA_DEF_DEF_  "NWM-Basisadresse" 1024;
+BA_DEF_DEF_  "NWM-Typ" "keines";
+BA_DEF_DEF_  "NWM-Knoten" "";
+BA_DEF_DEF_  "NWM-Stationsadresse" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigCycleTimeActive" 0;
+BA_DEF_DEF_  "GenSigCycleTime" 0;
+BA_DEF_DEF_  "GenSigSendType" "";
+BA_DEF_DEF_  "GenMsgNrOfRepetitions" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeActive" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgSendType" "";
+BA_DEF_DEF_  "Baudrate" 500000;
+BA_DEF_DEF_  "VersionWeek" 44;
+BA_DEF_DEF_  "VersionYear" 4;
+BA_DEF_DEF_  "Manufacturer" "DBAG";
+BA_DEF_DEF_  "DiagResponse" "";
+BA_DEF_DEF_  "DiagRequest" "";
+BA_DEF_DEF_  "DiagState" "";
+BA_DEF_DEF_  "App-Botschaft" "";
+BA_DEF_DEF_  "NWM-Botschaft" "";
+BA_ "Manufacturer" 0;
+BA_ "NWM-Typ" 2;
+BA_ "VersionYear" 6;
+BA_ "VersionWeek" 19;
+BA_ "NWM-Basisadresse" 0;
+BA_ "Baudrate" 500000;
+BA_ "SamplePointMin" 75;
+BA_ "SamplePointMax" 81.25;
+BA_ "NBTMin" 9;
+BA_ "NBTMax" 21;
+BA_ "NWID" 0;
+BA_ "NmMessageCount" 0;
+BA_ "Version" 0;
+BA_ "BusType" "CAN";
+BA_ "NWM-Knoten" BU_ VCU 0;
+

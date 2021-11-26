@@ -1,0 +1,37 @@
+syntax = "proto2";
+
+package apollo.canbus;
+
+message Acc_info_41 {
+// Control Message
+  // [] [0|1]
+  optional bool acc_enabled = 1;
+  // [%] [0|100]
+  optional int32 brake = 2;
+  // [%] [0|100]
+  optional int32 throttle = 3;
+}
+
+message Dash_commands_42 {
+// Report Message
+  // [] [0|1]
+  optional bool acc_enabled = 1;
+  // [ft] [10|150]
+  optional int32 minimum_follow_distance = 2;
+  // [mph] [0|200]
+  optional int32 target_vehicle_speed = 3;
+}
+
+message Pt_info_43 {
+// Report Message
+  // [] [0|100]
+  optional int32 lateral_acceleration = 1;
+  // [mph] [0|300]
+  optional int32 vehicle_speed = 2;
+}
+
+message Poc_vehicle {
+  optional Acc_info_41 acc_info_41 = 1; // control message
+  optional Dash_commands_42 dash_commands_42 = 2; // report message
+  optional Pt_info_43 pt_info_43 = 3; // report message
+}

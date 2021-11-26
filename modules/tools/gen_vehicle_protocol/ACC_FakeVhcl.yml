@@ -1,0 +1,115 @@
+car_type: ACC_FakeVhcl
+protocols:
+  '60':
+    id: '60'
+    name: dm_gas_60
+    protocol_type: report
+    sender: VCU
+    vars:
+    - bit: 7
+      description: Current output list type
+      is_signed_var: false
+      len: 16
+      name: DM_Gas
+      offset: 0.0
+      order: motorola
+      physical_range: '[0|1]'
+      physical_unit: ''
+      precision: 0.1
+      type: double
+  '61':
+    id: '61'
+    name: dm_brake_61
+    protocol_type: report
+    sender: VCU
+    vars:
+    - bit: 7
+      is_signed_var: false
+      len: 16
+      name: DM_Brake
+      offset: 0.0
+      order: motorola
+      physical_range: '[0|1]'
+      physical_unit: ''
+      precision: 0.1
+      type: double
+  '62':
+    id: '62'
+    name: vc_gas_62
+    protocol_type: control
+    sender: ACU
+    vars:
+    - bit: 7
+      is_signed_var: false
+      len: 16
+      name: VC_Gas
+      offset: 0.0
+      order: motorola
+      physical_range: '[0|1]'
+      physical_unit: ''
+      precision: 0.1
+      type: double
+  '63':
+    id: '63'
+    name: vc_brake_63
+    protocol_type: control
+    sender: ACU
+    vars:
+    - bit: 7
+      is_signed_var: false
+      len: 16
+      name: VC_Brake
+      offset: 0.0
+      order: motorola
+      physical_range: '[0|1]'
+      physical_unit: ''
+      precision: 0.1
+      type: double
+  '64':
+    id: '64'
+    name: vhcl_velocity_64
+    protocol_type: report
+    sender: VCU
+    vars:
+    - bit: 7
+      is_signed_var: false
+      len: 16
+      name: Vhcl_Velocity
+      offset: 0.0
+      order: motorola
+      physical_range: '[0|6553.5]'
+      physical_unit: ''
+      precision: 0.1
+      type: double
+  '65':
+    id: '65'
+    name: vhcl_poi_ax_1_65
+    protocol_type: report
+    sender: VCU
+    vars:
+    - bit: 7
+      is_signed_var: false
+      len: 16
+      name: Vhcl_POI_Ax_1
+      offset: 0.0
+      order: motorola
+      physical_range: '[0|6553.5]'
+      physical_unit: ''
+      precision: 0.1
+      type: double
+  '66':
+    id: '66'
+    name: cfg_cruise_speed_66
+    protocol_type: report
+    sender: VCU
+    vars:
+    - bit: 7
+      is_signed_var: false
+      len: 16
+      name: Cfg_Cruise_Speed
+      offset: 0.0
+      order: motorola
+      physical_range: '[0|6553.5]'
+      physical_unit: ''
+      precision: 0.1
+      type: double

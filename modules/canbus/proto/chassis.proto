@@ -126,6 +126,9 @@ message Chassis {
   optional apollo.common.VehicleID vehicle_id = 33;
 
   optional int32 battery_soc_percentage = 34 [default = -1];
+
+  // Lateral speed acceleration in square meters per second.
+  optional float acceleration = 35;
 }
 
 message ChassisGPS {

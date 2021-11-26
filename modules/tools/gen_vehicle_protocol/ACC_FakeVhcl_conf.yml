@@ -1,0 +1,9 @@
+dbc_file: ACC_FakeVhcl.dbc
+protocol_conf: ACC_FakeVhcl.yml
+car_type: ACC_FakeVhcl
+sender_list: []
+sender: ACU
+black_list: []
+
+output_dir: output/
+

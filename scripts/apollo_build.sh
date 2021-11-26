@@ -23,7 +23,7 @@ source "${TOP_DIR}/scripts/apollo_base.sh"
 
 ARCH="$(uname -m)"
 
-: ${USE_ESD_CAN:=false}
+: ${USE_ESD_CAN:=true}
 USE_GPU=-1
 
 CMDLINE_OPTIONS=
@@ -244,7 +244,8 @@ function run_bazel_build() {
   info "${TAB}Disabled:      ${YELLOW}${disabled_targets}${NO_COLOR}"
 
   local job_args="--jobs=$(nproc) --local_ram_resources=HOST_RAM*0.7"
-  bazel build ${CMDLINE_OPTIONS} ${job_args} -- ${formatted_targets}
+  # bazel aquery -- ${formatted_targets} >> /apollo/cyber/aquery.log
+  bazel build -s --explain=/apollo/cyber/build.log --verbose_explanations ${CMDLINE_OPTIONS} ${job_args} -- ${formatted_targets}
 }
 
 function build_simulator() {

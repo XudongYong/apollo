@@ -5,12 +5,13 @@
 #include <math.h>
 #include <stdbool.h>
 #include "ACC.h"
+#include <stdio.h>
 
 static double c_i;
 static bool initialized;
 tACC_ECU ACC_ECU;
 //todo: the radar sensor has to be named as RA00 for now.
-static char* UAQNames[] = { "SC.State", "DM.Brake", "Driver.ReCon.Speed", "Vhcl.v", "Vhcl.PoI.ax_1", "VC.Gas", "VC.Brake", "Sensor.Radar.RA00.nObj"};
+// static char* UAQNames[] = { "SC.State", "DM.Brake", "Driver.ReCon.Speed", "Vhcl.v", "Vhcl.PoI.ax_1", "VC.Gas", "VC.Brake", "Sensor.Radar.RA00.nObj"};
 static double UAQValues[UAQCount];
 // static double RadarObjValues[MaxObj];
 
@@ -249,6 +250,7 @@ AccelCtrl_Init()
 static bool
 FindRelativeTarget(double* relvTgtDvp, double* relvTgtDsp, double* radarObjValues)
 {
+    UAQValues[RadarNObj] = 15;
 	if(UAQValues[RadarNObj] > 0)
 	{
 		int objNum = UAQValues[RadarNObj];
@@ -273,9 +275,10 @@ FindRelativeTarget(double* relvTgtDvp, double* relvTgtDsp, double* radarObjValue
 		}
 	}
 	return FALSE;
+    
 }
 
-static void
+static bool
 DesrAccelFunc_ACC(double dt, double* radarObjValues)
 {
     double ax, ax_sc, delta_ds;
@@ -284,8 +287,9 @@ DesrAccelFunc_ACC(double dt, double* radarObjValues)
     bool relvTgtDtct = FindRelativeTarget(&relvTgtDvp, &relvTgtDsp, radarObjValues);
 
     /* Driver Brake Limit */
-    if (UAQValues[DMBrake] > ACC_ECU.BrakeThreshold)
+    if (UAQValues[DMBrake] > ACC_ECU.BrakeThreshold){
         ACC_ECU.IsActive = 0;
+    }        
 
     /* Time until collision    */
     if (relvTgtDvp < 0) {
@@ -299,11 +303,12 @@ DesrAccelFunc_ACC(double dt, double* radarObjValues)
         /* ACC off -> set desired speed to current car speed */
         ACC_ECU.DesrSpd = UAQValues[VhclVelocity];
         ACC_ECU.DesrAx = NOTSET;
-        return;
+        return false;
     }
 
     /* ACC active */
     if (relvTgtDtct) {
+
         /* if target detected set desired distance,
            DesrDistance[m] = Target.v[m/s] / Desired Time Gap(Init= 1.8[s])
            or if target stand still DSMIN: 20[m] distance */
@@ -312,6 +317,7 @@ DesrAccelFunc_ACC(double dt, double* radarObjValues)
 
         /* Distance Control Algorithm: result = desired ax */
         delta_ds = relvTgtDsp - ACC_ECU.DesrDist; /* d_ist-d_soll */
+ 
         ax = (delta_ds) / (ACC_ECU.dc_kd) + relvTgtDvp / ACC_ECU.dc_kv;
         /* ax_sc = desired ax from Speed Control */
         ax_sc = (ACC_ECU.DesrSpd - UAQValues[VhclVelocity]) / ACC_ECU.sc_kv;
@@ -324,44 +330,58 @@ DesrAccelFunc_ACC(double dt, double* radarObjValues)
     else {
         /* Speed Control Algorithm: result = desired ax */
         /*      s->relvTarget.ds = -1; */
-      //  ax = (ACC_ECU.DesrSpd - UAQValues[VhclVelocity]) / ACC_ECU.sc_kv;
+        ax = (ACC_ECU.DesrSpd - UAQValues[VhclVelocity]) / ACC_ECU.sc_kv;
         /* Limitation */
-      //  if (ax > ACC_ECU.axmax) ax = ACC_ECU.axmax;
-      //  if (ax < -0.35) ax = -0.35;
-    	ACC_ECU.DesrSpd = UAQValues[VhclVelocity];
-    	ACC_ECU.DesrAx = NOTSET;
-    	return;
+        if (ax > ACC_ECU.axmax) ax = ACC_ECU.axmax;
+        if (ax < -0.35) ax = -0.35;
+    	//ACC_ECU.DesrSpd = UAQValues[VhclVelocity] + 1;
+    	//ACC_ECU.DesrAx = NOTSET;
+    	return false;
     }
 
     ACC_ECU.DesrAx = ax;
-    return;
+    return relvTgtDtct;
 }
 
-static void
-ECU_ACC(double* radarObjValues)
+static AccCommand
+ECU_ACC(double* radarObjValues, double speed, double acceleration, bool accEnabled)
 {
+    AccCommand result;
     double dt = 1;
-    ACC_ReadUAQ(UAQNames, UAQValues, UAQCount);
-    if (UAQValues[SCState] != SCState_Simulate)
-    {
-        return;
-    }
-    if(!initialized)
+    //  ACC_ReadUAQ(UAQNames, UAQValues, UAQCount);
+    UAQValues[VhclVelocity] = speed;
+    UAQValues[VhclPoIAx_1] = acceleration;
+    //Hard code here as we haven't implemented the Dash ECU yet. 
+    UAQValues[DriverTgtSpeed] = 140; //140 kmph
+    UAQValues[DMBrake] = 0.0;
+   // if (UAQValues[SCState] != SCState_Simulate)
+   // {
+   //     return;
+   // }
+
+    if(!initialized && accEnabled)
     {
         AccelCtrl_Init();
         initialized = TRUE;
+    }
+    else if (accEnabled == FALSE)
+    {
+        ACC_ECU.IsActive = 0;
+        // Force ACC to re-init at next ACC Enabled when ACC is disabled here.
+        initialized = FALSE;
     }
 
     double c, delta_ax, c_p;
 
     /* Calculate target longitudinal acceleration ax */
-    DesrAccelFunc_ACC(dt, radarObjValues);
+    result.findtarget = DesrAccelFunc_ACC(dt, radarObjValues);
+
 
     /* Controller for converting desired ax to gas or brake */
     if (ACC_ECU.DesrAx == NOTSET) {
         /* no control required */
         c_i = UAQValues[VCGas];
-        return;
+        return result;
     }
 
     delta_ax = ACC_ECU.DesrAx - UAQValues[VhclPoIAx_1];
@@ -375,20 +395,23 @@ ECU_ACC(double* radarObjValues)
     c_i = c - c_p;
 
     /* Gas or Brake */
+    //if (c >= 0 || (speed < 0.00000001 && acceleration < 0.00001 && acceleration > -0.000001)) {
     if (c >= 0) {
-        DVA_WriteAbs(Srv, 10000, "VC.Gas", c);
-        DVA_WriteAbs(Srv, 10000, "VC.Brake", 0.0);
-        pause(1);
+      //  DVA_WriteAbs(Srv, 10000, "VC.Gas", c);
+      //  DVA_WriteAbs(Srv, 10000, "VC.Brake", 0.0);
+      //  pause(1);
+      result.throttle = c * 100;
+      result.breakpedal = 0;
     }
     else {
-        DVA_WriteAbs(Srv, 10000, "VC.Gas", 0.0);
-        DVA_WriteAbs(Srv, 10000, "VC.Brake", -c);
-        pause(1);
-    }       
+      //  DVA_WriteAbs(Srv, 10000, "VC.Gas", 0.0);
+       // DVA_WriteAbs(Srv, 10000, "VC.Brake", -c);
+      //  pause(1);
+      result.breakpedal = -c * 100;
+      result.throttle = 0;
+    }
+    return result;       
 }
-
-
-
 
 /******************************************************************************/
 //ACC ECU Controller functions that are called from Apollo.
@@ -400,10 +423,10 @@ InitACC ()
     setup_client();
 }
 
-void
-RunACC (double * radarObjs)
+AccCommand
+RunACC (double * radarObjs, double speed, double acceleration, bool accEnabled)
 {
-    ECU_ACC(radarObjs);
+    return ECU_ACC(radarObjs, speed, acceleration, accEnabled);
 }
 
 void

@@ -36,6 +36,8 @@ enum VehicleBrand {
   CH = 7;
   DKIT = 8;
   NEOLIX = 9;
+  ACC_FAKEVHCL = 10;
+  POC_VEHICLE = 11;
 }
 
 message VehicleID {

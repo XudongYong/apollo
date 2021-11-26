@@ -54,6 +54,8 @@ cc_library(
         "//modules/canbus/vehicle/transit:transit_vehicle_factory",
         "//modules/canbus/vehicle/wey:wey_vehicle_factory",
         "//modules/canbus/vehicle/zhongyun:zhongyun_vehicle_factory",
+        "//modules/canbus/vehicle/acc_fakevhcl:acc_fakevhcl_vehicle_factory",
+        "//modules/canbus/vehicle/poc_vehicle:poc_vehicle_vehicle_factory",
         "//modules/common/util:factory",
     ],
 )
