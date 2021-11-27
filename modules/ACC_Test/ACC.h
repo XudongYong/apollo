@@ -94,10 +94,19 @@ typedef struct {
     double breakpedal;
     double throttle;
     bool findtarget;
+    double desiredAx;
+    double desiredSpeed;
+    double speed;
+    double c0;
+    double c1;
+    double ci0;
+    double cp0;
+    double ci1;
+    double cp1;
 } AccCommand;
 
 void InitACC();
-AccCommand RunACC(double* radarObjs, double speed, double acceleration, bool accEnabled);
+AccCommand RunACC(double* radarObjs, double speed, double acceleration, bool accEnabled, double, double);
 void ShutDownACC();
 
 #ifdef __cplusplus

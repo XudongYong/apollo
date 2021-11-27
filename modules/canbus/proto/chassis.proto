@@ -129,6 +129,10 @@ message Chassis {
 
   // Lateral speed acceleration in square meters per second.
   optional float acceleration = 35;
+
+  optional double target_vehicle_speed = 36 [default = nan];
+
+  optional double min_follow_distance = 37 [default = nan];
 }
 
 message ChassisGPS {

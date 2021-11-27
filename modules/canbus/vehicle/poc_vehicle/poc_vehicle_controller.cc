@@ -161,7 +161,7 @@ Chassis Poc_vehicleController::chassis() {
   }
 
   // 9
-  AINFO << "###1 has_acc_info_41: " << poc_vehicle.has_acc_info_41() 
+  AINFO << "# has_acc_info_41: " << poc_vehicle.has_acc_info_41() 
         << " has_brake: " << poc_vehicle.acc_info_41().has_brake();
   if (poc_vehicle.has_acc_info_41() && poc_vehicle.acc_info_41().has_brake()) {
     chassis_.set_brake_percentage(
@@ -178,13 +178,13 @@ Chassis Poc_vehicleController::chassis() {
     chassis_.set_acceleration(0);
   }
 
-  // Todo: add dash ecu command here...
-  AINFO << "###1 has_dash_commands_42: " << poc_vehicle.has_dash_commands_42() 
+  // Dash ACC Enabled
+  AINFO << "# has_dash_commands_42: " << poc_vehicle.has_dash_commands_42() 
         << " has_acc_enabled: " << poc_vehicle.dash_commands_42().has_acc_enabled()
         << " acc_info_41_->acc_enabled: " << acc_info_41_->acc_enabled();
   if (poc_vehicle.has_dash_commands_42() && poc_vehicle.dash_commands_42().has_acc_enabled()) {
     bool accEnabled = poc_vehicle.dash_commands_42().acc_enabled();
-    AINFO << "###1 accEnabled: " << accEnabled;
+    AINFO << "# accEnabled: " << accEnabled;
     if (accEnabled)
     {
       chassis_.set_driving_mode(Chassis_DrivingMode::Chassis_DrivingMode_COMPLETE_AUTO_DRIVE);
@@ -193,6 +193,24 @@ Chassis Poc_vehicleController::chassis() {
     {
       chassis_.set_driving_mode(Chassis_DrivingMode::Chassis_DrivingMode_COMPLETE_MANUAL);      
     }
+  }
+
+  // Dash Target Vehicle Speed 
+  if (poc_vehicle.has_dash_commands_42() && poc_vehicle.dash_commands_42().has_target_vehicle_speed()) {
+    int targetSpeed = poc_vehicle.dash_commands_42().target_vehicle_speed();
+    AINFO << "# targetSpeed: " << targetSpeed;
+    chassis_.set_target_vehicle_speed((double)targetSpeed);
+  } else {
+    chassis_.set_target_vehicle_speed(0);
+  }
+
+  // Dash Min Follow Distance 
+  if (poc_vehicle.has_dash_commands_42() && poc_vehicle.dash_commands_42().has_minimum_follow_distance()) {
+    int minFollowDistance = poc_vehicle.dash_commands_42().minimum_follow_distance();
+    AINFO << "# minFollowDistance: " << minFollowDistance;
+    chassis_.set_min_follow_distance((double)minFollowDistance);
+  } else {
+    chassis_.set_min_follow_distance(0);
   }
 
   return chassis_;
@@ -205,7 +223,7 @@ void Poc_vehicleController::Emergency() {
 
 ErrorCode Poc_vehicleController::EnableAutoMode() {
   acc_info_41_->set_acc_enabled(true);
-  AINFO << "###1 Switch to COMPLETE_AUTO_DRIVE ok.";
+  AINFO << "# Switch to COMPLETE_AUTO_DRIVE ok.";
 
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE) {
     AINFO << "already in COMPLETE_AUTO_DRIVE mode";
@@ -222,7 +240,7 @@ ErrorCode Poc_vehicleController::DisableAutoMode() {
   //can_sender_->Update();
   set_driving_mode(Chassis::COMPLETE_MANUAL);
   set_chassis_error_code(Chassis::NO_ERROR);
-  AINFO << "###1 Switch to COMPLETE_MANUAL ok.";
+  AINFO << "# Switch to COMPLETE_MANUAL ok.";
   return ErrorCode::OK;
 }
 

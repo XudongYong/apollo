@@ -21,6 +21,8 @@ class ACCComponent : public Component<ContiRadar, canbus::Chassis> {
   double vehicleSpeed;
   double vehicleXAcceleration;
   bool accEnabled;
+  double targetVehicleSpeed;
+  double minFollowDistance;
   std::shared_ptr<cyber::Writer<ControlCommand>> control_cmd_writer_;
 };
 CYBER_REGISTER_COMPONENT(ACCComponent)
