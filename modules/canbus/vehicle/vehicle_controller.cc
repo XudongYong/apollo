@@ -120,7 +120,7 @@ ErrorCode VehicleController::Update(const ControlCommand &control_command) {
     SetDrivingMode(mode);
   }
 
-  AINFO << "###1 Enter Vehicle controller update: " << driving_mode()
+  AINFO << "# Enter Vehicle controller update: " << driving_mode()
         << ", control_command.driving_mode() " << control_command.driving_mode();
   SetDrivingMode(control_command.driving_mode());
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
